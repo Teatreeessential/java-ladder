@@ -15,7 +15,7 @@ public class User {
         }
 
         private static User cache(String name) {
-            User user = User.valueOf(name);
+            User user = new User(name);
             USER_CACHE.put(name, user);
             return user;
         }
@@ -42,5 +42,18 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

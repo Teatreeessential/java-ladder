@@ -21,7 +21,7 @@ public class Line implements Iterable<Boolean>{
         List<Boolean> pointList = new ArrayList<>();
 
         return IntStream.range(0, countOfPerson)
-                .mapToObj(idx -> checkPointRule(idx, pointList))
+                .mapToObj(idx -> pointList.add(checkPointRule(idx, pointList)))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), Line::new));
     }
 
@@ -29,6 +29,20 @@ public class Line implements Iterable<Boolean>{
         if (countOfPerson < 1) {
             throw new IllegalArgumentException("라인 생성시 적어도 한명 이상의 사다리게임 참가자가 필요합니다.");
         }
+    }
+
+    public int move(int startingPoint) {
+        int resultPoint = startingPoint;
+
+        if (pointList.get(startingPoint - 1)) {
+            resultPoint -= 1;
+        }
+
+        if (pointList.get(startingPoint + 1)) {
+            resultPoint += 1;
+        }
+
+        return resultPoint;
     }
 
     private static boolean checkPointRule(int currentInx, List<Boolean> pointList) {

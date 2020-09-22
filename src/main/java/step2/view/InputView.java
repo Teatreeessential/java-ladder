@@ -13,10 +13,24 @@ public class InputView {
         return participantsNames;
     }
 
+    public static String inputPrizes() {
+        System.out.println("실행 결과를 입력하세요. (결과는 쉼표(,)로 구분하세요)");
+        String inputPrizes = scanner.next();
+
+        return inputPrizes;
+    }
+
     public static int inputLadderDepth() {
         System.out.println("최대 사다리 높이는 몇 개인가요?");
-        int participantsNames = scanner.nextInt();
+        int ladderDeptth = scanner.nextInt();
 
-        return participantsNames;
+        return ladderDeptth;
+    }
+
+    public static String inputResult() {
+        System.out.println("결과를 보고 싶은 사람은?");
+        String inputResult = scanner.next();
+
+        return inputResult;
     }
 }

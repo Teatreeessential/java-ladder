@@ -2,6 +2,7 @@ package step2.domain;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -23,6 +24,14 @@ public class UserList implements Iterable<User>{
                 .stream()
                 .map(User::valueOf)
                 .collect(Collectors.collectingAndThen(toList(), UserList::new));
+    }
+
+    public int getUserstartingPoint(String name) {
+        return userList.indexOf(User.valueOf(name));
+    }
+
+    public int getUserstartingPoint(User user) {
+        return userList.indexOf(user);
     }
 
     public int getTotalParticipantsCount() {

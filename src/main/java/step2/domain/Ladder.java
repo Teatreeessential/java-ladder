@@ -1,10 +1,11 @@
 package step2.domain;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 public class Ladder implements Iterable<Line> {
 
@@ -17,11 +18,9 @@ public class Ladder implements Iterable<Line> {
     public static Ladder create(int depth, int countOfPerson) {
         validLadderCreate(depth, countOfPerson);
 
-        List<Line> lineList = IntStream.range(0, depth)
+        return IntStream.range(0, depth)
                 .mapToObj(line -> Line.create(countOfPerson))
-                .collect(Collectors.toList());
-
-        return new Ladder(lineList);
+                .collect(Collectors.collectingAndThen(toList(), Ladder::new));
     }
 
     private static void validLadderCreate(int depth, int countOfPerson) {
@@ -32,6 +31,16 @@ public class Ladder implements Iterable<Line> {
         if (countOfPerson < 1) {
             throw new IllegalArgumentException("최소 한명 이상의 게임 참여자가 필요 합니다.");
         }
+    }
+
+    public int move(int startingPoint) {
+        int resultPoint = startingPoint;
+
+        for (Line line : lineList) {
+            resultPoint = line.move(resultPoint);
+        }
+
+        return resultPoint;
     }
 
     @Override
